@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+// Node class
 class Node {
 public:
     int data;
@@ -12,34 +13,67 @@ public:
     }
 };
 
-// Insert at tail
+// Insert at Head
+void insertAtHead(Node* &head, int data) {
+    Node* newNode = new Node(data);
+    newNode->next = head;
+    head = newNode;
+}
+
+// Insert at Tail
 void insertAtTail(Node* &head, int data) {
     Node* newNode = new Node(data);
-
-    if (head == NULL) { // If list is empty, new node becomes head
+    
+    if (head == NULL) { // If list is empty
         head = newNode;
         return;
     }
 
     Node* temp = head;
     while (temp->next != NULL) {
-        temp = temp->next; // Move to the last node
+        temp = temp->next;
     }
     
-    temp->next = newNode; // Attach the new node at the end
+    temp->next = newNode;
 }
 
-// Print the linked list
+// Insert at Any Position
+void insertAtAnyPosition(Node* &head, int data, int position) {
+    Node* newNode = new Node(data);
+
+    if (position == 0) { // Insert at head
+        insertAtHead(head, data);
+        return;
+    }
+
+    Node* temp = head;
+    int curr = 0;
+
+    while (temp != NULL && curr < position - 1) {
+        temp = temp->next;
+        curr++;
+    }
+
+    if (temp == NULL) { // If position is out of bounds
+        cout << "Position out of bounds!" << endl;
+        return;
+    }
+
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+// Print Linked List
 void print(Node* head) {
     Node* temp = head;
     while (temp) {
-        cout << temp->data << "->";
+        cout << temp->data << " -> ";
         temp = temp->next;
     }
     cout << "NULL" << endl;
 }
 
-// Delete the head node
+// Delete Head Node
 void deleteHead(Node* &head) {
     if (head == NULL) {
         cout << "List is empty!" << endl;
@@ -47,18 +81,18 @@ void deleteHead(Node* &head) {
     }
 
     Node* temp = head;
-    head = head->next; // Move head to the next node
-    delete temp; // Free memory
+    head = head->next;
+    delete temp;
 }
 
-// Delete a node at a specific position
+// Delete Node at a Given Position
 void deleteAtPosition(Node* &head, int position) {
     if (head == NULL) {
         cout << "List is empty!" << endl;
         return;
     }
 
-    if (position == 0) { // If deleting the head
+    if (position == 0) { // Delete head
         deleteHead(head);
         return;
     }
@@ -77,11 +111,11 @@ void deleteAtPosition(Node* &head, int position) {
     }
 
     Node* nodeToDelete = temp->next;
-    temp->next = temp->next->next; // Skip the target node
-    delete nodeToDelete; // Free memory
+    temp->next = temp->next->next;
+    delete nodeToDelete;
 }
 
-// Delete the tail node
+// Delete Tail Node
 void deleteTail(Node* &head) {
     if (head == NULL) {
         cout << "List is empty!" << endl;
@@ -100,18 +134,19 @@ void deleteTail(Node* &head) {
         temp = temp->next;
     }
 
-    delete temp->next; // Free last node
-    temp->next = NULL; // Set second last node's next to NULL
+    delete temp->next;
+    temp->next = NULL;
 }
 
+// Main Function
 int main() {
     Node* head = NULL;
-
+   insertAtHead(head, 5);
     insertAtTail(head, 10);
     insertAtTail(head, 20);
     insertAtTail(head, 30);
     insertAtTail(head, 40);
-
+    
     cout << "Original List: ";
     print(head);
 
@@ -121,6 +156,10 @@ int main() {
 
     deleteTail(head);
     cout << "After deleting tail: ";
+    print(head);
+
+    insertAtAnyPosition(head, 25, 1);
+    cout << "After inserting 25 at position 1: ";
     print(head);
 
     deleteAtPosition(head, 1);
