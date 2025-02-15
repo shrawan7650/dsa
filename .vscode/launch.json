@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/shraw/OneDrive/Desktop/dsa/LinkedList",
-      "program": "c:/Users/shraw/OneDrive/Desktop/dsa/LinkedList/build/Debug/outDebug",
+      "cwd": "c:/Users/shraw/OneDrive/Desktop/dsa/stack",
+      "program": "c:/Users/shraw/OneDrive/Desktop/dsa/stack/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
